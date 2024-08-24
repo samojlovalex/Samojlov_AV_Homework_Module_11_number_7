@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    tools:context=".MainActivity">
+
+    <LinearLayout
+        android:id="@+id/containerMainToolbarLL"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="@dimen/padding"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:ignore="MissingConstraints">
+
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbarMain"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/Blue"
+            app:subtitleTextAppearance="@style/TextAppearance.AppCompat.Body1"
+            app:subtitleTextColor="@color/white"
+            app:titleTextAppearance="@style/TextAppearance.AppCompat.Body2"
+            app:titleTextColor="@color/white"
+            tools:ignore="MissingConstraints"></androidx.appcompat.widget.Toolbar>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/containerMainTitleLL"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/layout_width"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:padding="@dimen/padding"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/containerMainToolbarLL">
+
+        <TextView
+            android:id="@+id/textViewMaimIV"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="@string/textViewMaimIV"
+            android:textColor="@color/Blue"
+            android:textSize="@dimen/textSiZeHeadingTV"
+            android:textStyle="bold|italic"></TextView>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/layout_width"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <ImageView
+                android:id="@+id/imageViewMainIV"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:scaleType="centerInside"
+                android:src="@drawable/welkome"></ImageView>
+
+        </LinearLayout>
+
+        <Button
+            android:id="@+id/mainButtonBT"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:backgroundTint="@color/Transparent"
+            android:text="@string/mainButtonBT"
+            android:textColor="@color/Blue_purple"
+            android:textSize="@dimen/textSiZeBT"
+            android:textStyle="bold"></Button>
+
+    </LinearLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/list_item_margin_RelativeLayout">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginVertical="@dimen/list_item_margin_LinearLayout"
+            android:orientation="horizontal">
+
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/imageVieWListItemIV"
+                android:layout_width="@dimen/list_item_margin_EditImage_Radius"
+                android:layout_height="@dimen/list_item_margin_EditImage_Radius"
+                android:layout_margin="@dimen/list_item_margin_ImageView"
+                android:scaleType="centerCrop"
+                android:src="@drawable/shop_photo"></de.hdodenhof.circleimageview.CircleImageView>
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/list_item_margin_LinearLayout_Two"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/itemProductNameTV"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/productName"
+                    android:textSize="@dimen/textSiZeTVAssortmentItem"
+                    android:textColor="@color/Blue"
+                    android:textStyle="bold"></TextView>
+                <TextView
+                    android:id="@+id/itemProductPriceTV"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/textViewMargin_Top"
+                    android:hint="@string/productPrice"
+                    android:textSize="@dimen/textSizeTextViewItemPrice"
+                    android:textColor="@color/Blue"
+                    ></TextView>
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </RelativeLayout>
+
+</LinearLayout>

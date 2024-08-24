@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="layout_width">0dp</dimen>
+    <dimen name="padding">8dp</dimen>
+
+    <dimen name="textSiZeTV">30sp</dimen>
+    <dimen name="textSiZeHeadingTV">35sp</dimen>
+    <dimen name="textSiZeTVAssortment">18sp</dimen>
+    <dimen name="textSiZeTVAssortmentItem">24sp</dimen>
+    <dimen name="textSiZeET">26sp</dimen>
+    <dimen name="textSiZeBT">26sp</dimen>
+    <dimen name="textSiZeBTAddAssortment">22sp</dimen>
+    <dimen name="textSizeTextViewItemPrice">18sp</dimen>
+
+    <dimen name="minHeight">48dp</dimen>
+    <dimen name="intermediate">10dp</dimen>
+    <dimen name="logoToolbarSize">48dp</dimen>
+    <dimen name="radiusOfTheCornersOfTheFrame">20dp</dimen>
+    <dimen name="editTextMargin">8dp</dimen>
+    <dimen name="editImageIVMargin">20dp</dimen>
+    <dimen name="editImageIVRadius">100dp</dimen>
+    <dimen name="textViewMargin_Top">6dp</dimen>
+
+    <dimen name="list_item_margin_RelativeLayout">16dp</dimen>
+    <dimen name="list_item_margin_LinearLayout">10dp</dimen>
+    <dimen name="list_item_margin_EditImage_Radius">80dp</dimen>
+    <dimen name="list_item_margin_ImageView">8dp</dimen>
+    <dimen name="list_item_margin_LinearLayout_Two">20dp</dimen>
+</resources>
