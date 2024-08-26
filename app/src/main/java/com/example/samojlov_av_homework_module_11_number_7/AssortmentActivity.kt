@@ -98,9 +98,9 @@ class AssortmentActivity : AppCompatActivity() {
             editImageIV.setImageBitmap(it)
         }
 
-//        currentViewModel.currentProductImageResource.observe(this){
-//            editImageIV.setImageResource(it)
-//        }
+        currentViewModel.currentProductImageResource.observe(this){
+            editImageIV.setImageResource(it)
+        }
 
     }
 
@@ -108,9 +108,10 @@ class AssortmentActivity : AppCompatActivity() {
         productNameET.text.clear()
         productPriceET.text.clear()
         var resource = R.drawable.shop_photo
-        editImageIV.setImageResource(resource)
-//        currentViewModel.currentProductImageResource.value = (resource.also { currentViewModel.productImageResource = it })
         bitmap = null
+        currentViewModel.currentProductImage.value = (bitmap.also { currentViewModel.productImage = it } )
+        editImageIV.setImageResource(resource)
+        currentViewModel.currentProductImageResource.value = (resource.also { currentViewModel.productImageResource = it })
     }
 
     private fun greatProduct() {
