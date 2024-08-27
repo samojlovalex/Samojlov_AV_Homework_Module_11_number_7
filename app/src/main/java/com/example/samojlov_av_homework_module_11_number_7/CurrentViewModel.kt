@@ -1,7 +1,6 @@
 package com.example.samojlov_av_homework_module_11_number_7
 
 import android.graphics.Bitmap
-import android.widget.ArrayAdapter
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 

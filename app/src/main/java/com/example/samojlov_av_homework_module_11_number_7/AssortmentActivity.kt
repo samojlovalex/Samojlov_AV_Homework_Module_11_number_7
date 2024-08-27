@@ -23,13 +23,14 @@ import com.example.samojlov_av_homework_module_11_number_7.databinding.ActivityA
 import java.io.IOException
 
 
+@Suppress("DEPRECATION", "DEPRECATED_IDENTITY_EQUALS")
 class AssortmentActivity : AppCompatActivity() {
 
     private val GALLERY_REQUEST = 25
-    var bitmap: Bitmap? = null
+    private var bitmap: Bitmap? = null
     private var productList: MutableList<Product> = mutableListOf()
 
-    lateinit var currentViewModel: CurrentViewModel
+    private lateinit var currentViewModel: CurrentViewModel
     private var listAdapter: ArrayAdapter<Product>? = null
 
     private lateinit var binding: ActivityAssortmentBinding
@@ -107,7 +108,7 @@ class AssortmentActivity : AppCompatActivity() {
     private fun clearEditFields() {
         productNameET.text.clear()
         productPriceET.text.clear()
-        var resource = R.drawable.shop_photo
+        val resource = R.drawable.shop_photo
         bitmap = null
         currentViewModel.currentProductImage.value = (bitmap.also { currentViewModel.productImage = it } )
         editImageIV.setImageResource(resource)
@@ -129,6 +130,7 @@ class AssortmentActivity : AppCompatActivity() {
 
     }
 
+    @Deprecated("This method has been deprecated in favor of using the Activity Result API\n      which brings increased type safety via an {@link ActivityResultContract} and the prebuilt\n      contracts for common intents available in\n      {@link androidx.activity.result.contract.ActivityResultContracts}, provides hooks for\n      testing, and allow receiving results in separate, testable classes independent from your\n      activity. Use\n      {@link #registerForActivityResult(ActivityResultContract, ActivityResultCallback)}\n      with the appropriate {@link ActivityResultContract} and handling the result in the\n      {@link ActivityResultCallback#onActivityResult(Object) callback}.")
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         editImageIV = binding.editImageIV
