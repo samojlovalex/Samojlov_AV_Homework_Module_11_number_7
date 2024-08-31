@@ -14,6 +14,9 @@
         android:theme="@style/Theme.Samojlov_AV_Homework_Module_11_number_7"
         tools:targetApi="31">
         <activity
+            android:name=".ProductDescriptionActivity"
+            android:exported="false" />
+        <activity
             android:name=".AssortmentActivity"
             android:exported="false" />
         <activity

@@ -40,6 +40,7 @@ android {
 
 dependencies {
 
+    implementation(libs.gson)
     implementation(libs.circleimageview)
     implementation(libs.lifecycle.viewmodel.ktx)
     implementation(libs.lifecycle.livedata.ktx)

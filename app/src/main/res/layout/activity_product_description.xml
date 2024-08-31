@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    tools:context=".ProductDescriptionActivity">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:padding="@dimen/padding"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:id="@+id/containerDescriptionToolbarLL"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_weight="1"
+            tools:ignore="MissingConstraints">
+
+            <androidx.appcompat.widget.Toolbar
+                android:id="@+id/toolbarDescription"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/Blue"
+                app:subtitleTextAppearance="@style/TextAppearance.AppCompat.Body1"
+                app:subtitleTextColor="@color/white"
+                app:titleTextAppearance="@style/TextAppearance.AppCompat.Body2"
+                app:titleTextColor="@color/white"
+                tools:ignore="MissingConstraints"></androidx.appcompat.widget.Toolbar>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/containerDescriptionImageViewIV"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:gravity="center"
+            android:layout_weight="1"
+            >
+
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/editImageDescriptionIV"
+                android:layout_width="@dimen/editImageDescriptionIVRadius"
+                android:layout_height="@dimen/editImageDescriptionIVRadius"
+                android:layout_margin="@dimen/editImageIVMargin"
+                android:layout_weight="1"
+                android:scaleType="centerCrop"
+                android:src="@drawable/shop_photo">
+
+            </de.hdodenhof.circleimageview.CircleImageView>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/containerNamePriceTextViewLL"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:orientation="vertical">
+            <TextView
+                android:id="@+id/nameDescriptionTW"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:hint="@string/productName"
+                android:textSize="@dimen/textSiZeTV"
+                android:layout_weight="1"
+                android:textColor="@color/Blue"
+                android:textStyle="bold"></TextView>
+            <TextView
+                android:id="@+id/priceDescriptionTW"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:layout_weight="1"
+                android:hint="@string/productPrice"
+                android:textSize="@dimen/textSiZePriseDescriptionTV"
+                android:textColor="@color/Blue"
+                ></TextView>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/containerDescriptionTextViewLL"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center_horizontal"
+            android:orientation="vertical">
+            <ScrollView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:id="@+id/descriptionDescriptionTV"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:hint="@string/productDescriptionET"
+                    android:textSize="@dimen/textSiZeDescriptionDescriptionTV"
+                    android:textStyle="italic"
+                    android:textColor="@color/Blue"></TextView>
+
+            </ScrollView>
+        </LinearLayout>
+
+    </LinearLayout>
+
+
+
+</ScrollView>

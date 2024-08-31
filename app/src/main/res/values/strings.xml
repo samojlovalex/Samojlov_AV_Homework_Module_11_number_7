@@ -9,4 +9,5 @@
     <string name="productName">Наименование</string>
     <string name="productPrice">Цена</string>
     <string name="addProductBT">Добавить</string>
+    <string name="productDescriptionET"><font size="15">Краткое описание</font></string>
 </resources>

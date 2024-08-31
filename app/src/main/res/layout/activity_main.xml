@@ -8,29 +8,6 @@
     android:background="@color/white"
     tools:context=".MainActivity">
 
-    <LinearLayout
-        android:id="@+id/containerMainToolbarLL"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:padding="@dimen/padding"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:ignore="MissingConstraints">
-
-        <androidx.appcompat.widget.Toolbar
-            android:id="@+id/toolbarMain"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@color/Blue"
-            app:subtitleTextAppearance="@style/TextAppearance.AppCompat.Body1"
-            app:subtitleTextColor="@color/white"
-            app:titleTextAppearance="@style/TextAppearance.AppCompat.Body2"
-            app:titleTextColor="@color/white"
-            tools:ignore="MissingConstraints"></androidx.appcompat.widget.Toolbar>
-
-    </LinearLayout>
 
     <LinearLayout
         android:id="@+id/containerMainTitleLL"
@@ -42,7 +19,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/containerMainToolbarLL">
+        app:layout_constraintTop_toTopOf="parent">
 
         <TextView
             android:id="@+id/textViewMaimIV"

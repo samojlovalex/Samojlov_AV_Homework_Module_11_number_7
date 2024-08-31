@@ -2,12 +2,11 @@ package com.example.samojlov_av_homework_module_11_number_7
 
 import android.annotation.SuppressLint
 import android.content.Intent
-import android.graphics.Bitmap
 import android.net.Uri
 import android.os.Bundle
-import android.provider.MediaStore
 import android.view.Menu
 import android.view.MenuItem
+import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.Button
 import android.widget.EditText
@@ -20,14 +19,17 @@ import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.lifecycle.ViewModelProvider
 import com.example.samojlov_av_homework_module_11_number_7.databinding.ActivityAssortmentBinding
-import java.io.IOException
+import com.google.gson.Gson
+import kotlin.reflect.typeOf
+import kotlin.reflect.javaType
 
 
+@OptIn(ExperimentalStdlibApi::class)
 @Suppress("DEPRECATION", "DEPRECATED_IDENTITY_EQUALS")
 class AssortmentActivity : AppCompatActivity() {
 
     private val GALLERY_REQUEST = 25
-    private var bitmap: Bitmap? = null
+    private var photoUri: Uri? = null
     private var productList: MutableList<Product> = mutableListOf()
 
     private lateinit var currentViewModel: CurrentViewModel
@@ -38,6 +40,7 @@ class AssortmentActivity : AppCompatActivity() {
     private lateinit var editImageIV: ImageView
     private lateinit var productNameET: EditText
     private lateinit var productPriceET: EditText
+    private lateinit var productDescriptionET: EditText
     private lateinit var addProductBT: Button
     private lateinit var listProductLV: ListView
 
@@ -69,6 +72,7 @@ class AssortmentActivity : AppCompatActivity() {
         productNameET = binding.productNameET
         productPriceET = binding.productPriceET
         addProductBT = binding.addProductBT
+        productDescriptionET = binding.productDescriptionET
         listProductLV = binding.listProductLV
 
         saveDataAssortmentActivity()
@@ -84,7 +88,20 @@ class AssortmentActivity : AppCompatActivity() {
             greatProduct()
             clearEditFields()
         }
+
+        listProductLV.onItemClickListener =listVieWCheck()
+
     }
+
+    private fun listVieWCheck() =
+        AdapterView.OnItemClickListener { _, _, position, _ ->
+            val product = productList[position]
+            val type = typeOf<Product>().javaType
+            val gson = Gson().toJson(product, type)
+            val intent = Intent(this, ProductDescriptionActivity::class.java)
+            intent.putExtra("product", gson)
+            startActivity(intent)
+        }
 
     private fun saveDataAssortmentActivity() {
         currentViewModel.currentProductList.observe(this) {
@@ -95,11 +112,11 @@ class AssortmentActivity : AppCompatActivity() {
         }
 
         currentViewModel.currentProductImage.observe(this) {
-            bitmap = it
-            editImageIV.setImageBitmap(it)
+            photoUri = it
+            editImageIV.setImageURI(it)
         }
 
-        currentViewModel.currentProductImageResource.observe(this){
+        currentViewModel.currentProductImageResource.observe(this) {
             editImageIV.setImageResource(it)
         }
 
@@ -108,25 +125,32 @@ class AssortmentActivity : AppCompatActivity() {
     private fun clearEditFields() {
         productNameET.text.clear()
         productPriceET.text.clear()
+        productDescriptionET.text.clear()
         val resource = R.drawable.shop_photo
-        bitmap = null
-        currentViewModel.currentProductImage.value = (bitmap.also { currentViewModel.productImage = it } )
+        photoUri = null
+        currentViewModel.currentProductImage.value =
+            (photoUri.also { currentViewModel.productImage = it })
         editImageIV.setImageResource(resource)
-        currentViewModel.currentProductImageResource.value = (resource.also { currentViewModel.productImageResource = it })
+        currentViewModel.currentProductImageResource.value =
+            (resource.also { currentViewModel.productImageResource = it })
     }
 
     private fun greatProduct() {
         currentViewModel.productName = productNameET.text.toString()
         currentViewModel.productPrice = productPriceET.text.toString()
-        currentViewModel.currentProductImage.value = (bitmap.also { currentViewModel.productImage = it } )
+        currentViewModel.productDescription = productDescriptionET.text.toString()
+        currentViewModel.currentProductImage.value =
+            (photoUri.also { currentViewModel.productImage = it })
         val product = Product()
         product.name = currentViewModel.productName
         product.price = currentViewModel.productPrice
-        product.image = bitmap
+        product.description = currentViewModel.productDescription
+        product.image = photoUri.toString()
         productList.add(product)
-        currentViewModel.currentProductList.value = (productList.also { currentViewModel.productList = it } )
+        currentViewModel.currentProductList.value =
+            (productList.also { currentViewModel.productList = it })
         listAdapter!!.notifyDataSetChanged()
-        Toast.makeText(this,"${product.name} добавлен", Toast.LENGTH_LONG).show()
+        Toast.makeText(this, "${product.name} добавлен", Toast.LENGTH_LONG).show()
 
     }
 
@@ -136,16 +160,8 @@ class AssortmentActivity : AppCompatActivity() {
         editImageIV = binding.editImageIV
         when (requestCode) {
             GALLERY_REQUEST -> if (resultCode === RESULT_OK) {
-                val selectedImage: Uri? = data?.data
-                try {
-                    bitmap = MediaStore.Images.Media.getBitmap(contentResolver, selectedImage)
-                    currentViewModel.currentProductImage.value = (bitmap.also { currentViewModel.productImage = it } )
-                } catch (
-                    e: IOException
-                ) {
-                    e.printStackTrace()
-                }
-                editImageIV.setImageBitmap(bitmap)
+                photoUri = data?.data
+                editImageIV.setImageURI(photoUri)
 
             }
         }

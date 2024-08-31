@@ -4,6 +4,8 @@
     <dimen name="padding">8dp</dimen>
 
     <dimen name="textSiZeTV">30sp</dimen>
+    <dimen name="textSiZePriseDescriptionTV">20sp</dimen>
+    <dimen name="textSiZeDescriptionDescriptionTV">20sp</dimen>
     <dimen name="textSiZeHeadingTV">35sp</dimen>
     <dimen name="textSiZeTVAssortment">18sp</dimen>
     <dimen name="textSiZeTVAssortmentItem">24sp</dimen>
@@ -19,6 +21,7 @@
     <dimen name="editTextMargin">8dp</dimen>
     <dimen name="editImageIVMargin">20dp</dimen>
     <dimen name="editImageIVRadius">100dp</dimen>
+    <dimen name="editImageDescriptionIVRadius">250dp</dimen>
     <dimen name="textViewMargin_Top">6dp</dimen>
 
     <dimen name="list_item_margin_RelativeLayout">16dp</dimen>
@@ -26,4 +29,5 @@
     <dimen name="list_item_margin_EditImage_Radius">80dp</dimen>
     <dimen name="list_item_margin_ImageView">8dp</dimen>
     <dimen name="list_item_margin_LinearLayout_Two">20dp</dimen>
+    <dimen name="listViewSize">625dp</dimen>
 </resources>
