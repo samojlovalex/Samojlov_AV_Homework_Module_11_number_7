@@ -3,7 +3,11 @@
     <style name="Base.Theme.Samojlov_AV_Homework_Module_11_number_7" parent="Theme.Material3.DayNight.NoActionBar">
         <!-- Customize your light theme here. -->
         <!-- <item name="colorPrimary">@color/my_light_primary</item> -->
+        <item name="actionOverflowButtonStyle">@style/OverFlow</item>
     </style>
 
     <style name="Theme.Samojlov_AV_Homework_Module_11_number_7" parent="Base.Theme.Samojlov_AV_Homework_Module_11_number_7" />
+    <style name="OverFlow" parent="Widget.AppCompat.ActionButton.Overflow">
+        <item name="android:src">@drawable/menu_icon</item>
+    </style>
 </resources>

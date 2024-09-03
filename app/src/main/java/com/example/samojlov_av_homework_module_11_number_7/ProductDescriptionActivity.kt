@@ -1,6 +1,8 @@
 package com.example.samojlov_av_homework_module_11_number_7
 
 import android.annotation.SuppressLint
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
@@ -18,6 +20,7 @@ import com.google.gson.Gson
 import kotlin.reflect.javaType
 import kotlin.reflect.typeOf
 
+@Suppress("DEPRECATION", "DEPRECATED_IDENTITY_EQUALS")
 @OptIn(ExperimentalStdlibApi::class)
 class ProductDescriptionActivity : AppCompatActivity() {
     private lateinit var binding: ActivityProductDescriptionBinding
@@ -27,8 +30,10 @@ class ProductDescriptionActivity : AppCompatActivity() {
     private lateinit var nameDescriptionTW: TextView
     private lateinit var priceDescriptionTW: TextView
     private lateinit var descriptionDescriptionTV: TextView
-    private var productString: String? = null
     private var product: Product? = null
+    private var productList: MutableList<Product>? = null
+    private val GALLERY_REQUEST = 26
+    private var photoUri: Uri? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -57,7 +62,18 @@ class ProductDescriptionActivity : AppCompatActivity() {
         priceDescriptionTW = binding.priceDescriptionTW
         descriptionDescriptionTV = binding.descriptionDescriptionTV
 
+        editImageDescriptionIV.setOnClickListener {
+            val photoPickerIntent = Intent(Intent.ACTION_PICK)
+            photoPickerIntent.type = "image/*"
+            startActivityForResult(photoPickerIntent, GALLERY_REQUEST)
+        }
+
         currentViewModel = ViewModelProvider(this)[CurrentViewModel::class.java]
+
+        currentViewModel.currentProductImageDescription.observe(this) {
+            photoUri = it.toUri()
+            editImageDescriptionIV.setImageURI(it.toUri())
+        }
 
         receivingData()
 
@@ -76,14 +92,18 @@ class ProductDescriptionActivity : AppCompatActivity() {
     }
 
     private fun receivingData() {
-        val type = typeOf<Product>().javaType
-        productString = intent.getStringExtra("product")
-        product = Gson().fromJson(productString, type)
+        val type = typeOf<MutableList<Product>?>().javaType
+        val productListString: String? = intent.getStringExtra("productList")
+        productList = Gson().fromJson(productListString, type)
+        currentViewModel.position = intent.extras?.getInt("position")
+        product = productList!![currentViewModel.position!!.toInt()]
+        currentViewModel.checkDescription = intent.extras?.getBoolean("checkOut")
 
         currentViewModel.productNameDescription = product!!.name
         currentViewModel.productPriceDescription = product!!.price
         currentViewModel.productDescriptionDescription = product?.description ?: ""
-        currentViewModel.productImageDescription = product?.image ?: ""
+        currentViewModel.productImageDescription = product?.image!!
+
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
@@ -102,7 +122,43 @@ class ProductDescriptionActivity : AppCompatActivity() {
                 ).show()
                 finishAffinity()
             }
+
+            R.id.backMenuAssortment -> {
+                Toast.makeText(
+                    applicationContext,
+                    getString(R.string.toast_back),
+                    Toast.LENGTH_LONG
+                ).show()
+                if (currentViewModel.position != null) {
+                    productList!!.add(currentViewModel.position!! + 1, product!!)
+                    productList!!.removeAt(currentViewModel.position!!)
+                }
+                val intent = Intent(this, AssortmentActivity::class.java)
+                val type = typeOf<MutableList<Product>>().javaType
+                val gson = Gson().toJson(productList, type)
+                currentViewModel.checkDescription = false
+                intent.putExtra("checkBack", currentViewModel.checkDescription)
+                intent.putExtra("productListBack", gson)
+                currentViewModel.currentProductImageDescription.removeObservers(this)
+                startActivity(intent)
+                finish()
+            }
         }
         return super.onOptionsItemSelected(item)
+    }
+
+    @Deprecated("This method has been deprecated in favor of using the Activity Result API\n      which brings increased type safety via an {@link ActivityResultContract} and the prebuilt\n      contracts for common intents available in\n      {@link androidx.activity.result.contract.ActivityResultContracts}, provides hooks for\n      testing, and allow receiving results in separate, testable classes independent from your\n      activity. Use\n      {@link #registerForActivityResult(ActivityResultContract, ActivityResultCallback)}\n      with the appropriate {@link ActivityResultContract} and handling the result in the\n      {@link ActivityResultCallback#onActivityResult(Object) callback}.")
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        editImageDescriptionIV = binding.editImageDescriptionIV
+        when (requestCode) {
+            GALLERY_REQUEST -> if (resultCode === RESULT_OK) {
+                photoUri = data?.data
+                editImageDescriptionIV.setImageURI(photoUri)
+                currentViewModel.currentProductImageDescription.value =
+                    (photoUri.toString().also { currentViewModel.productImageDescription = it })
+                product?.image = currentViewModel.productImageDescription
+            }
+        }
     }
 }

@@ -34,9 +34,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@color/Blue"
-                app:subtitleTextAppearance="@style/TextAppearance.AppCompat.Body1"
+                app:subtitleTextAppearance="@style/TextAppearance.AppCompat.Small"
                 app:subtitleTextColor="@color/white"
-                app:titleTextAppearance="@style/TextAppearance.AppCompat.Body2"
+                app:titleTextAppearance="@style/TextAppearance.AppCompat.Small"
                 app:titleTextColor="@color/white"
                 tools:ignore="MissingConstraints"></androidx.appcompat.widget.Toolbar>
 

@@ -10,7 +10,7 @@
         android:icon="@drawable/exit_icon"
         android:orderInCategory="50"
         android:title="@string/exit"
-        app:showAsAction="ifRoom">
+        app:showAsAction="never">
 
     </item>
 

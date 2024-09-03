@@ -17,7 +17,11 @@ import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import androidx.lifecycle.ReportFragment.Companion.reportFragment
+import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.ViewModelStore
+import androidx.lifecycle.viewModelScope
 import com.example.samojlov_av_homework_module_11_number_7.databinding.ActivityAssortmentBinding
 import com.google.gson.Gson
 import kotlin.reflect.typeOf
@@ -89,17 +93,33 @@ class AssortmentActivity : AppCompatActivity() {
             clearEditFields()
         }
 
-        listProductLV.onItemClickListener =listVieWCheck()
+        listProductLV.onItemClickListener = listVieWCheck()
 
+    }
+
+    override fun onResume() {
+        super.onResume()
+
+        currentViewModel.check = intent.extras?.getBoolean("checkBack") ?: true
+        val check = currentViewModel.check
+        if (!check) {
+            val type = typeOf<MutableList<Product>>().javaType
+            val productListString = intent.getStringExtra("productListBack")
+            productList = Gson().fromJson(productListString, type)
+            currentViewModel.currentProductList.value =
+                (productList.also { currentViewModel.productList = it })
+            currentViewModel.check = true
+        }
     }
 
     private fun listVieWCheck() =
         AdapterView.OnItemClickListener { _, _, position, _ ->
-            val product = productList[position]
-            val type = typeOf<Product>().javaType
-            val gson = Gson().toJson(product, type)
+            val type = typeOf<MutableList<Product>>().javaType
+            val gson = Gson().toJson(productList, type)
             val intent = Intent(this, ProductDescriptionActivity::class.java)
-            intent.putExtra("product", gson)
+            intent.putExtra("productList", gson)
+            intent.putExtra("position", position)
+            intent.putExtra("checkOut", currentViewModel.check)
             startActivity(intent)
         }
 
@@ -114,10 +134,6 @@ class AssortmentActivity : AppCompatActivity() {
         currentViewModel.currentProductImage.observe(this) {
             photoUri = it
             editImageIV.setImageURI(it)
-        }
-
-        currentViewModel.currentProductImageResource.observe(this) {
-            editImageIV.setImageResource(it)
         }
 
     }
@@ -136,22 +152,25 @@ class AssortmentActivity : AppCompatActivity() {
     }
 
     private fun greatProduct() {
+
         currentViewModel.productName = productNameET.text.toString()
         currentViewModel.productPrice = productPriceET.text.toString()
         currentViewModel.productDescription = productDescriptionET.text.toString()
         currentViewModel.currentProductImage.value =
             (photoUri.also { currentViewModel.productImage = it })
+
         val product = Product()
         product.name = currentViewModel.productName
         product.price = currentViewModel.productPrice
         product.description = currentViewModel.productDescription
         product.image = photoUri.toString()
         productList.add(product)
+
         currentViewModel.currentProductList.value =
             (productList.also { currentViewModel.productList = it })
+
         listAdapter!!.notifyDataSetChanged()
         Toast.makeText(this, "${product.name} добавлен", Toast.LENGTH_LONG).show()
-
     }
 
     @Deprecated("This method has been deprecated in favor of using the Activity Result API\n      which brings increased type safety via an {@link ActivityResultContract} and the prebuilt\n      contracts for common intents available in\n      {@link androidx.activity.result.contract.ActivityResultContracts}, provides hooks for\n      testing, and allow receiving results in separate, testable classes independent from your\n      activity. Use\n      {@link #registerForActivityResult(ActivityResultContract, ActivityResultCallback)}\n      with the appropriate {@link ActivityResultContract} and handling the result in the\n      {@link ActivityResultCallback#onActivityResult(Object) callback}.")
@@ -162,7 +181,8 @@ class AssortmentActivity : AppCompatActivity() {
             GALLERY_REQUEST -> if (resultCode === RESULT_OK) {
                 photoUri = data?.data
                 editImageIV.setImageURI(photoUri)
-
+                currentViewModel.currentProductImage.value =
+                    (photoUri.also { currentViewModel.productImage = it })
             }
         }
     }
@@ -186,4 +206,5 @@ class AssortmentActivity : AppCompatActivity() {
         }
         return super.onOptionsItemSelected(item)
     }
+
 }
