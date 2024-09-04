@@ -17,11 +17,7 @@ import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
-import androidx.lifecycle.ReportFragment.Companion.reportFragment
-import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.ViewModelStore
-import androidx.lifecycle.viewModelScope
 import com.example.samojlov_av_homework_module_11_number_7.databinding.ActivityAssortmentBinding
 import com.google.gson.Gson
 import kotlin.reflect.typeOf
